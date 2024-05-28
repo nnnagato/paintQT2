@@ -10,13 +10,17 @@ CONFIG += c++17
 
 SOURCES += \
     src/drawtool.cpp \
+    src/ellipsetool.cpp \
     src/linetool.cpp \
     src/main.cpp \
+    src/rectTool.cpp \
     src/workspace.cpp \
 
 HEADERS += \
     src/drawtool.h \
+    src/ellipsetool.h \
     src/linetool.h \
+    src/rectTool.h \
    src/workspace.h \
 
 FORMS += \

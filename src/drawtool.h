@@ -1,10 +1,11 @@
 #ifndef DRAWTOOL_H
 #define DRAWTOOL_H
 
+#include <Qwidget>
 #include <QPoint>
 #include <QObject>
 
-class drawTool
+class drawTool : public QWidget
 {
 public:
     drawTool();

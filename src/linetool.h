@@ -1,13 +1,14 @@
 #ifndef LINETOOL_H
 #define LINETOOL_H
-#include "drawtool.h"
 
-#include <QObject>
+#include "drawtool.h"
 
 class LineTool : public drawTool
 {
 public:
     LineTool();
+
+private:
     void draw() override;
 };
 

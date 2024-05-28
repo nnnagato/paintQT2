@@ -6,6 +6,7 @@
 
 #include <QMainWindow>
 #include <QPaintEvent>
+#include <QMouseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class WorkSpace; }
@@ -23,19 +24,28 @@ signals:
 
 
 protected:
-//    void paintEvent(QPaintEvent *event);
+    void mouseReleaseEvent(QMouseEvent* event);
+    void mousePressEvent(QMouseEvent* event);
+    void mouseMoveEvent(QMouseEvent* event);
 
 private slots:
     void toolSelector();
 
 private:
-//    drawTool& tool;
+    void getposition();
+    void setupMenu();
+    void setCoordinates(QPoint pos);
+
+private:
+    drawTool* currentTool;
     Ui::WorkSpace *ui;
     QMenu *menu;
     QAction *actLine;
     QAction *actRect;
     QAction *actEllipse;
     QAction *actPen;
+    QPoint startPosition;
+    QPoint endPosition;
 
 //    LineTool Line;
 
