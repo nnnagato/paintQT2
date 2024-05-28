@@ -5,6 +5,7 @@
 #include "ui_workspace.h"
 #include "linetool.h"
 
+#include <QPainter>
 #include <QDebug>
 #include <math.h>
 
@@ -16,6 +17,9 @@ WorkSpace::WorkSpace(QWidget *parent)
     ui->setupUi(this);
     setupMenu();
     showMaximized();
+    canvas = new QPixmap(2000,2000);
+    canvas->fill(Qt::white);
+    setStyleSheet("background : white");
     currentTool = new LineTool();//защита от дурака
 
 }
@@ -26,20 +30,16 @@ void WorkSpace::setupMenu()
     actLine = new QAction("line",this);
     actRect = new QAction("rect",this);
     actEllipse = new QAction("Ellipse",this);
-    actPen = new QAction("Pen",this);
     actLine->setObjectName("Line");
     actRect->setObjectName("Rect");
     actEllipse->setObjectName("Ellipse");
-    actPen->setObjectName("Pen");
     menu->addAction(actLine);
     menu->addAction(actRect);
     menu->addAction(actEllipse);
-    menu->addAction(actPen);
     ui->toolsButton->setMenu(menu);
     connect(actLine,SIGNAL(triggered()),this,SLOT(toolSelector()));
     connect(actRect,SIGNAL(triggered()),this,SLOT(toolSelector()));
     connect(actEllipse,SIGNAL(triggered()),this,SLOT(toolSelector()));
-    connect(actPen,SIGNAL(triggered()),this,SLOT(toolSelector()));
 }
 
 void WorkSpace::setCoordinates(QPoint pos)
@@ -77,18 +77,12 @@ void WorkSpace::getposition()
     endPosition.setY(std::max(startPosition.y(),endPosition.y()));
 }
 
-
-
-WorkSpace::~WorkSpace()
-{
-    delete ui;
-}
-
 void WorkSpace::mouseReleaseEvent(QMouseEvent* event)
 {
     endPosition = event->pos();
     getposition();
-    currentTool->draw();
+    currentTool->draw(startPosition, endPosition, canvas);
+    update();
 }
 
 void WorkSpace::mousePressEvent(QMouseEvent* event)
@@ -99,5 +93,17 @@ void WorkSpace::mousePressEvent(QMouseEvent* event)
 void WorkSpace::mouseMoveEvent(QMouseEvent* event)
 {
     setCoordinates(event->pos());
+}
+
+void WorkSpace::paintEvent(QPaintEvent* event)
+{
+    Q_UNUSED(event);
+    QPainter painter;
+    painter.drawPixmap(0,0,*canvas);
+}
+
+WorkSpace::~WorkSpace()
+{
+    delete ui;
 }
 

@@ -1,7 +1,8 @@
 #ifndef DRAWTOOL_H
 #define DRAWTOOL_H
 
-#include <Qwidget>
+
+#include <QWidget>
 #include <QPoint>
 #include <QObject>
 
@@ -11,7 +12,8 @@ public:
     drawTool();
     QPoint startPosition;
     QPoint endPosition;
-    virtual void draw();
+    QPainter painter();
+    virtual void draw(QPoint start, QPoint end, QPixmap* canvas);
 };
 
 #endif // DRAWTOOL_H

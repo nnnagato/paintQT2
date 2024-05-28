@@ -6,7 +6,7 @@ ellipseTool::ellipseTool()
 
 }
 
-void ellipseTool::draw()
+void ellipseTool::draw(QPoint start, QPoint end, QPixmap* canvas)
 {
     QMessageBox msg;
     msg.setText("Ellipse");

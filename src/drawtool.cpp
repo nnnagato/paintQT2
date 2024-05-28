@@ -5,7 +5,7 @@ drawTool::drawTool()
 
 }
 
-void drawTool::draw()
+void drawTool::draw(QPoint start, QPoint end, QPixmap* canvas)
 {
 
 };

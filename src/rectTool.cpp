@@ -6,7 +6,7 @@ rectTool::rectTool()
 
 }
 
-void rectTool::draw()
+void rectTool::draw(QPoint start, QPoint end, QPixmap* canvas)
 {
     QMessageBox msg;
     msg.setText("rect");

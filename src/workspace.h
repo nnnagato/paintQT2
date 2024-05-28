@@ -27,6 +27,7 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
+    void paintEvent(QPaintEvent* event);
 
 private slots:
     void toolSelector();
@@ -36,6 +37,7 @@ private:
     void setupMenu();
     void setCoordinates(QPoint pos);
 
+
 private:
     drawTool* currentTool;
     Ui::WorkSpace *ui;
@@ -43,10 +45,9 @@ private:
     QAction *actLine;
     QAction *actRect;
     QAction *actEllipse;
-    QAction *actPen;
     QPoint startPosition;
     QPoint endPosition;
-
+    QPixmap* canvas = nullptr;
 //    LineTool Line;
 
 
