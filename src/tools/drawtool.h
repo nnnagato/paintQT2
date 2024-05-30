@@ -10,10 +10,7 @@ class drawTool : public QWidget
 {
 public:
     drawTool();
-    QPoint startPosition;
-    QPoint endPosition;
-    QPainter painter();
-    virtual void draw(QPoint start, QPoint end, QPixmap* canvas);
+    virtual void draw(QPoint start, QPoint end, QPixmap** canvas);
 };
 
 #endif // DRAWTOOL_H

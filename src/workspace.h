@@ -47,7 +47,9 @@ private:
     QAction *actEllipse;
     QPoint startPosition;
     QPoint endPosition;
-    QPixmap* canvas = nullptr;
+    QPoint upperPosition;
+    QPoint lowerPosition;
+    QPixmap* canvas;
 //    LineTool Line;
 
 

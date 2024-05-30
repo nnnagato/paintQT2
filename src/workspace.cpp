@@ -11,14 +11,14 @@
 
 WorkSpace::WorkSpace(QWidget *parent)
     : QMainWindow(parent)
-//    , tool(new *drawTool)
     , ui(new Ui::WorkSpace)
 {
     ui->setupUi(this);
     setupMenu();
     showMaximized();
-    canvas = new QPixmap(2000,2000);
+    canvas = new QPixmap(1920,1080);
     canvas->fill(Qt::white);
+
     setStyleSheet("background : white");
     currentTool = new LineTool();//защита от дурака
 
@@ -71,17 +71,17 @@ void WorkSpace::toolSelector()
 
 void WorkSpace::getposition()
 {
-    startPosition.setX(std::min(startPosition.x(),endPosition.x()));
-    startPosition.setY(std::min(startPosition.y(),endPosition.y()));
-    endPosition.setX(std::max(startPosition.x(),endPosition.x()));
-    endPosition.setY(std::max(startPosition.y(),endPosition.y()));
+    upperPosition.setX((std::min(startPosition.x(), endPosition.x())));
+    upperPosition.setY((std::min(startPosition.y(), endPosition.y())));
+    lowerPosition.setX((std::max(startPosition.x(), endPosition.x())));
+    lowerPosition.setY((std::max(startPosition.y(), endPosition.y())));
 }
 
 void WorkSpace::mouseReleaseEvent(QMouseEvent* event)
 {
     endPosition = event->pos();
     getposition();
-    currentTool->draw(startPosition, endPosition, canvas);
+    currentTool->draw(upperPosition, lowerPosition, &canvas);
     update();
 }
 
@@ -98,8 +98,11 @@ void WorkSpace::mouseMoveEvent(QMouseEvent* event)
 void WorkSpace::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
-    QPainter painter;
-    painter.drawPixmap(0,0,*canvas);
+    QPainter painter(this);
+//    painter.drawPixmap(90,90,*canvas);
+    ui->testLabel->setPixmap(*canvas);
+
+//    canvas->save("pic1.png",0,1);
 }
 
 WorkSpace::~WorkSpace()

@@ -9,7 +9,7 @@ public:
     rectTool();
 
 private:
-    void draw(QPoint start, QPoint end, QPixmap* canvas) override;
+    void draw(QPoint start, QPoint end, QPixmap** canvas) override;
 };
 
 #endif // RECTTOOL_H

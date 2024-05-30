@@ -9,18 +9,18 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    src/drawtool.cpp \
-    src/ellipsetool.cpp \
-    src/linetool.cpp \
     src/main.cpp \
-    src/rectTool.cpp \
+    src/tools/drawtool.cpp \
+    src/tools/ellipsetool.cpp \
+    src/tools/linetool.cpp \
+    src/tools/rectTool.cpp \
     src/workspace.cpp \
 
 HEADERS += \
-    src/drawtool.h \
-    src/ellipsetool.h \
-    src/linetool.h \
-    src/rectTool.h \
+    src/tools/drawtool.h \
+    src/tools/ellipsetool.h \
+    src/tools/linetool.h \
+    src/tools/rectTool.h \
    src/workspace.h \
 
 FORMS += \
