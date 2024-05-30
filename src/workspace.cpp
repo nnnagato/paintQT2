@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <QDebug>
 #include <math.h>
+#include <QFileDialog>
 
 WorkSpace::WorkSpace(QWidget *parent)
     : QMainWindow(parent)
@@ -46,7 +47,7 @@ void WorkSpace::setCoordinates(QPoint pos)
 {
     QString tempCoords;
     tempCoords.append("X: ");
-    tempCoords.append(QString::number(pos.x()));
+    tempCoords.append(QString::number(pos.x()-100));
     tempCoords.append("\nY: ");
     tempCoords.append(QString::number(pos.y()));
     ui->coordinatesLabel->setText(tempCoords);
@@ -92,21 +93,38 @@ void WorkSpace::mousePressEvent(QMouseEvent* event)
 
 void WorkSpace::mouseMoveEvent(QMouseEvent* event)
 {
+    if(event->pos().x()>100)
+    {
     setCoordinates(event->pos());
+
+    }
 }
 
 void WorkSpace::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QPainter painter(this);
-//    painter.drawPixmap(90,90,*canvas);
     ui->testLabel->setPixmap(*canvas);
 
-//    canvas->save("pic1.png",0,1);
+}
+
+void WorkSpace::on_savinButton_clicked()
+{
+    QString filename = QFileDialog::getSaveFileName(this, "Save as");
+
+    if(filename.isEmpty())
+        return;
+
+    QFile file(filename);
+
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+         return;
+
+    canvas->save(filename,0,1);
+    file.close();
 }
 
 WorkSpace::~WorkSpace()
 {
     delete ui;
 }
-

@@ -32,6 +32,8 @@ protected:
 private slots:
     void toolSelector();
 
+    void on_savinButton_clicked();
+
 private:
     void getposition();
     void setupMenu();

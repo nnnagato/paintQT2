@@ -15,18 +15,8 @@ void LineTool::draw(QPoint start, QPoint end, QPixmap** canvas)
     pix = *canvas;
     QPainter painter(pix);
     painter.drawLine(start.x()-100
-                     ,start.y()+250
+                     ,start.y()
                      ,end.x()-100
-                     ,end.y()+250);
-//    pix->save("pic1.png",0,1);
+                     ,end.y());
 }
 
-//void LineTool::paintEvent(QPaintEvent* event)
-//{
-//    Q_UNUSED(event);
-
-//    QPainter painter(pix);
-//    painter.setPen(Qt::red);
-//    painter.drawLine(startPosition, endPosition);
-//    pix->save("pic0.png",0,1);
-//}
