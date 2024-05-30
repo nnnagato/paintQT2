@@ -23,9 +23,9 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>20</x>
       <y>10</y>
-      <width>91</width>
+      <width>71</width>
       <height>77</height>
      </rect>
     </property>
@@ -71,12 +71,12 @@
      </item>
     </layout>
    </widget>
-   <widget class="QLabel" name="testLabel">
+   <widget class="QLabel" name="canvasLabel">
     <property name="geometry">
      <rect>
       <x>100</x>
       <y>0</y>
-      <width>1920</width>
+      <width>1911</width>
       <height>1080</height>
      </rect>
     </property>
@@ -97,6 +97,12 @@
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>false</bool>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
     </property>
    </widget>
   </widget>

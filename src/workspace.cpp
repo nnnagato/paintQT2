@@ -1,6 +1,7 @@
 #include "workspace.h"
 #include "ellipsetool.h"
 #include "qmenu.h"
+#include "qmessagebox.h"
 #include "rectTool.h"
 #include "ui_workspace.h"
 #include "linetool.h"
@@ -20,8 +21,9 @@ WorkSpace::WorkSpace(QWidget *parent)
     canvas = new QPixmap(1920,1080);
     canvas->fill(Qt::white);
 
-    setStyleSheet("background : white");
+    setStyleSheet("background : gray");
     currentTool = new LineTool();//защита от дурака
+    paintEvents();
 
 }
 
@@ -83,12 +85,12 @@ void WorkSpace::mouseReleaseEvent(QMouseEvent* event)
     endPosition = event->pos();
     getposition();
     currentTool->draw(upperPosition, lowerPosition, &canvas);
-    update();
+    paintEvents();
 }
 
 void WorkSpace::mousePressEvent(QMouseEvent* event)
 {
-    startPosition = event->pos();
+    startPosition = event->pos(); //таков путь
 }
 
 void WorkSpace::mouseMoveEvent(QMouseEvent* event)
@@ -100,12 +102,9 @@ void WorkSpace::mouseMoveEvent(QMouseEvent* event)
     }
 }
 
-void WorkSpace::paintEvent(QPaintEvent* event)
+void WorkSpace::paintEvents()
 {
-    Q_UNUSED(event);
-    QPainter painter(this);
-    ui->testLabel->setPixmap(*canvas);
-
+    ui->canvasLabel->setPixmap(*canvas);
 }
 
 void WorkSpace::on_savinButton_clicked()
@@ -117,7 +116,7 @@ void WorkSpace::on_savinButton_clicked()
 
     QFile file(filename);
 
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text))
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
          return;
 
     canvas->save(filename,0,1);
@@ -128,3 +127,46 @@ WorkSpace::~WorkSpace()
 {
     delete ui;
 }
+
+void WorkSpace::wheelEvent(QWheelEvent *event)
+{
+    const double scaleCoef = 1.1;
+    scaleSize = event->angleDelta().y() > 0
+            ? scaleSize * scaleCoef
+            : scaleSize / scaleCoef;
+//    QSize *sizesOf = new QSize(int(1920*scaleSize),int(1080*scaleSize));
+//    *canvas = canvas->scaled(*sizesOf,Qt::KeepAspectRatio);
+//    ui->canvasLabel->setPixmap(*canvas);
+//    canvasSize;
+    int width = static_cast<int>(1920*scaleSize);
+    int height = static_cast<int>(1080*scaleSize);
+    canvasSize.setWidth(width);
+    canvasSize.setHeight(height);
+    *canvas = canvas->scaled(canvasSize, Qt::KeepAspectRatio);
+
+    ui->canvasLabel->setPixmap(*canvas);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

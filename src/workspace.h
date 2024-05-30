@@ -27,17 +27,17 @@ protected:
     void mouseReleaseEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseMoveEvent(QMouseEvent* event);
-    void paintEvent(QPaintEvent* event);
+    void wheelEvent(QWheelEvent *event);
 
 private slots:
     void toolSelector();
-
     void on_savinButton_clicked();
 
 private:
     void getposition();
     void setupMenu();
     void setCoordinates(QPoint pos);
+    void paintEvents();
 
 
 private:
@@ -52,7 +52,8 @@ private:
     QPoint upperPosition;
     QPoint lowerPosition;
     QPixmap* canvas;
-//    LineTool Line;
+    double scaleSize;
+    QSize canvasSize;
 
 
 };
