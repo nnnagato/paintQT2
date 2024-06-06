@@ -52,7 +52,7 @@ private:
     QPoint upperPosition;
     QPoint lowerPosition;
     QPixmap* canvas;
-    double scaleSize;
+    qreal scaleSize;
     QSize canvasSize;
 
 

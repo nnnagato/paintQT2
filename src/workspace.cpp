@@ -24,6 +24,7 @@ WorkSpace::WorkSpace(QWidget *parent)
     setStyleSheet("background : gray");
     currentTool = new LineTool();//защита от дурака
     paintEvents();
+    scaleSize = 1;
 
 }
 
@@ -134,15 +135,11 @@ void WorkSpace::wheelEvent(QWheelEvent *event)
     scaleSize = event->angleDelta().y() > 0
             ? scaleSize * scaleCoef
             : scaleSize / scaleCoef;
-//    QSize *sizesOf = new QSize(int(1920*scaleSize),int(1080*scaleSize));
-//    *canvas = canvas->scaled(*sizesOf,Qt::KeepAspectRatio);
-//    ui->canvasLabel->setPixmap(*canvas);
-//    canvasSize;
-    int width = static_cast<int>(1920*scaleSize);
-    int height = static_cast<int>(1080*scaleSize);
-    canvasSize.setWidth(width);
-    canvasSize.setHeight(height);
-    *canvas = canvas->scaled(canvasSize, Qt::KeepAspectRatio);
+    qreal tempWidth = (1920*scaleSize);
+    qreal tempHeight = (1080*scaleSize);
+    canvasSize.setWidth((int)tempWidth);
+    canvasSize.setHeight((int)tempHeight);
+    *canvas = canvas->scaled(canvasSize);
 
     ui->canvasLabel->setPixmap(*canvas);
 
