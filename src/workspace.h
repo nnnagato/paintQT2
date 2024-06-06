@@ -30,7 +30,8 @@ protected:
 
 private slots:
 //    void toolSelector();
-    void on_savinButton_clicked();
+    void on_savingButton_clicked();
+    void on_openButton_clicked();
 
 private:
     void getposition();
@@ -57,5 +58,8 @@ private:
     DrawTool* lineTool = nullptr;
     DrawTool* rectTool = nullptr;
     DrawTool* ellipseTool = nullptr;
+
+    const int basePixmapHeight = 1080;
+    const int basePixmapWidth = 1920;
 };
 #endif // WORKSPACE_H

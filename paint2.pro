@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    src/fibonachi.cpp \
     src/main.cpp \
     src/tools/Drawtool.cpp \
     src/tools/Ellipsetool.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     src/workspace.cpp \
 
 HEADERS += \
+    src/fibonachi.h \
     src/tools/Drawtool.h \
     src/tools/Ellipsetool.h \
     src/tools/Linetool.h \

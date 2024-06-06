@@ -63,9 +63,16 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="savinButton">
+      <widget class="QPushButton" name="savingButton">
        <property name="text">
         <string>Save as</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="openButton">
+       <property name="text">
+        <string>Open</string>
        </property>
       </widget>
      </item>

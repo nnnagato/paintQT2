@@ -20,7 +20,7 @@ WorkSpace::WorkSpace(QWidget *parent)
 
     setupMenu();
     showMaximized();
-    pixmap = new QPixmap(1920,1080);
+    pixmap = new QPixmap(basePixmapWidth,basePixmapHeight);
     pixmap->fill(Qt::white);
 
     setStyleSheet("background : gray");
@@ -109,7 +109,7 @@ void WorkSpace::updatePixmap()
     ui->canvasLabel->setPixmap(*pixmap);
 }
 
-void WorkSpace::on_savinButton_clicked()
+void WorkSpace::on_savingButton_clicked()
 {
     QString filename = QFileDialog::getSaveFileName(this, "Save as", QString(), "Images (*.png)");
 
@@ -118,18 +118,7 @@ void WorkSpace::on_savinButton_clicked()
         return;
     }
 
-
-//    QFile file(filename);
-
-//    bool opened = file.open(QIODevice::ReadOnly | QIODevice::Text);
-
-//    if (!opened)
-//    {
-//         return;
-//    }
-
     pixmap->save(filename, nullptr, 1);
-//    file.close();
 }
 
 void WorkSpace::wheelEvent(QWheelEvent *event)
@@ -140,8 +129,8 @@ void WorkSpace::wheelEvent(QWheelEvent *event)
             : scaleSize / scaleCoef;
 
     QSize canvasSize;
-    canvasSize.setWidth((int)1920*scaleSize);
-    canvasSize.setHeight((int)1080*scaleSize);
+    canvasSize.setWidth((int)basePixmapWidth*scaleSize);
+    canvasSize.setHeight((int)basePixmapWidth*scaleSize);
 
     *pixmap = pixmap->scaled(canvasSize);
 
@@ -149,4 +138,24 @@ void WorkSpace::wheelEvent(QWheelEvent *event)
 }
 
 
-//qcustomplot
+//qcustomplot на новый проект
+//qjsonobject и это туда же
+//qmutex на почитать
+
+//мультипоточность
+//в мультипотоке сунуть рассчёт числа фибоначи до выбранного порядка, плашку расчёт и вывод в неё же результата по завершению
+//спинбокс с порядком кнопка с запуском
+
+
+
+//графики пусть будет синуса
+
+
+void WorkSpace::on_openButton_clicked()
+{
+    QString filename = QFileDialog::getOpenFileName(this, "Open", QString(), "Images (*.png)");
+
+    pixmap->load(filename, nullptr);
+    updatePixmap();
+}
+
