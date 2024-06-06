@@ -3,15 +3,15 @@
 
 #include <QPainter>
 
-rectTool::rectTool()
+RectTool::RectTool()
 {
 
 }
 
-void rectTool::draw(QPoint start, QPoint end, QPixmap** canvas)
+void RectTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
 //    pix = *canvas;
-    QPainter painter(*canvas);
+    QPainter painter(&canvas);
     painter.drawRect(start.x()-100
                      , start.y()
                      , end.x() - start.x()

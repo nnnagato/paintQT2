@@ -10,10 +10,9 @@ LineTool::LineTool()
 }
 
 
-void LineTool::draw(QPoint start, QPoint end, QPixmap** canvas)
+void LineTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
-    pix = *canvas;
-    QPainter painter(pix);
+    QPainter painter(&canvas);
     painter.drawLine(start.x()-100
                      ,start.y()
                      ,end.x()-100

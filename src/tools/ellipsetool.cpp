@@ -3,14 +3,14 @@
 
 #include <QPainter>
 
-ellipseTool::ellipseTool()
+EllipseTool::EllipseTool()
 {
 
 }
 
-void ellipseTool::draw(QPoint start, QPoint end, QPixmap** canvas)
+void EllipseTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
-    QPainter painter(*canvas);
+    QPainter painter(&canvas);
     painter.drawEllipse(start.x()-100
                         , start.y()
                         , end.x() - start.x()

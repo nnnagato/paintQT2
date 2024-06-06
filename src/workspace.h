@@ -22,7 +22,6 @@ public:
 
 signals:
 
-
 protected:
     void mouseReleaseEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
@@ -30,31 +29,33 @@ protected:
     void wheelEvent(QWheelEvent *event);
 
 private slots:
-    void toolSelector();
+//    void toolSelector();
     void on_savinButton_clicked();
 
 private:
     void getposition();
     void setupMenu();
     void setCoordinates(QPoint pos);
-    void paintEvents();
-
+    void updatePixmap();
 
 private:
-    drawTool* currentTool;
     Ui::WorkSpace *ui;
+
     QMenu *menu;
     QAction *actLine;
     QAction *actRect;
     QAction *actEllipse;
+
     QPoint startPosition;
     QPoint endPosition;
     QPoint upperPosition;
     QPoint lowerPosition;
-    QPixmap* canvas;
+    QPixmap* pixmap;
     qreal scaleSize;
-    QSize canvasSize;
 
-
+    DrawTool* currentTool = nullptr;
+    DrawTool* lineTool = nullptr;
+    DrawTool* rectTool = nullptr;
+    DrawTool* ellipseTool = nullptr;
 };
 #endif // WORKSPACE_H

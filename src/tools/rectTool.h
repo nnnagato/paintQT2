@@ -3,13 +3,13 @@
 
 #include "drawtool.h"
 
-class rectTool : public drawTool
+class RectTool : public DrawTool
 {
 public:
-    rectTool();
+    RectTool();
 
 private:
-    void draw(QPoint start, QPoint end, QPixmap** canvas) override;
+    void draw(const QPoint& start, const QPoint& end, QPixmap& canvas) override;
 };
 
 #endif // RECTTOOL_H

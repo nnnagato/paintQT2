@@ -4,19 +4,17 @@
 #include "drawtool.h"
 #include <QPaintEvent>
 
-class LineTool : public drawTool
+class LineTool : public DrawTool
 {
 public:
     LineTool();
 
 protected:
-//    void paintEvent(QPaintEvent *event);
 
 private:
-    void draw(QPoint start, QPoint end, QPixmap** canvas) override;
+    void draw(const QPoint& start, const QPoint& end, QPixmap& canvas) override;
 
 private:
-    QPixmap* pix;
 };
 
 #endif // LINETOOL_H

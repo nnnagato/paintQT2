@@ -1,10 +1,10 @@
 #include "drawtool.h"
 
-drawTool::drawTool()
+DrawTool::DrawTool()
 {
 
 }
-void drawTool::draw(QPoint start, QPoint end, QPixmap** canvas)
+void DrawTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
 
 };

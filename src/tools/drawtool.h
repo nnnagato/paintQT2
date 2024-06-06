@@ -6,11 +6,13 @@
 #include <QPoint>
 #include <QObject>
 
-class drawTool : public QWidget
+class DrawTool
 {
 public:
-    drawTool();
-    virtual void draw(QPoint start, QPoint end, QPixmap** canvas);
+    DrawTool();
+//    virtual ~drawTool() = default;
+
+    virtual void draw(const QPoint& start, const QPoint& end, QPixmap& canvas);
 };
 
 #endif // DRAWTOOL_H

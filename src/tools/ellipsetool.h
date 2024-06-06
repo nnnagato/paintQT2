@@ -1,16 +1,16 @@
 #ifndef ELLIPSETOOL_H
 #define ELLIPSETOOL_H
 
-#include "workspace.h"
+//#include "workspace.h"
 #include "drawtool.h"
 
-class ellipseTool : public drawTool
+class EllipseTool : public DrawTool
 {
 public:
-    ellipseTool();
+    EllipseTool();
 
 private:
-    void draw(QPoint start, QPoint end, QPixmap** canvas) override;
+    void draw(const QPoint& start, const QPoint& end, QPixmap& canvas) override;
 };
 
 #endif // ELLIPSETOOL_H
