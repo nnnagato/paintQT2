@@ -12,7 +12,8 @@ void RectTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
 //    pix = *canvas;
     QPainter painter(&canvas);
-    painter.drawRect(start.x()-100
+    painter.setPen(QPen(Qt::black,2,Qt::SolidLine));
+    painter.drawRect(start.x()
                      , start.y()
                      , end.x() - start.x()
                      , end.y() - start.y()

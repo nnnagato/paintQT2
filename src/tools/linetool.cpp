@@ -13,9 +13,10 @@ LineTool::LineTool()
 void LineTool::draw(const QPoint& start, const QPoint& end, QPixmap& canvas)
 {
     QPainter painter(&canvas);
-    painter.drawLine(start.x()-100
+    painter.setPen(QPen(Qt::black,3,Qt::SolidLine));
+    painter.drawLine(start.x()
                      ,start.y()
-                     ,end.x()-100
+                     ,end.x()
                      ,end.y());
 }
 

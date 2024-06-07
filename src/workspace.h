@@ -2,7 +2,7 @@
 #define WORKSPACE_H
 
 #include "drawtool.h"
-#include "linetool.h"
+#include "fibonachi.h"
 
 #include <QMainWindow>
 #include <QPaintEvent>
@@ -21,6 +21,7 @@ public:
     ~WorkSpace();
 
 signals:
+    void startCalc();
 
 protected:
     void mouseReleaseEvent(QMouseEvent* event);
@@ -29,15 +30,16 @@ protected:
     void wheelEvent(QWheelEvent *event);
 
 private slots:
-//    void toolSelector();
     void on_savingButton_clicked();
     void on_openButton_clicked();
+    void on_execButton_clicked();
 
 private:
     void getposition();
     void setupMenu();
     void setCoordinates(QPoint pos);
     void updatePixmap();
+    void on_calcFinished(quint64 result);
 
 private:
     Ui::WorkSpace *ui;
@@ -59,7 +61,12 @@ private:
     DrawTool* rectTool = nullptr;
     DrawTool* ellipseTool = nullptr;
 
+    Fibonachi* fib = nullptr;
+    QThread* fibThread = nullptr;
+
+
+    int order;
     const int basePixmapHeight = 1080;
-    const int basePixmapWidth = 1920;
+    const int basePixmapWidth = 2120;
 };
 #endif // WORKSPACE_H

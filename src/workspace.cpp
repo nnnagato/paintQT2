@@ -5,12 +5,13 @@
 #include "rectTool.h"
 #include "ui_workspace.h"
 #include "linetool.h"
+#include "fibonachi.h"
 
 #include <QPainter>
 #include <QDebug>
 #include <math.h>
 #include <QFileDialog>
-#include <QDoubleSpinBox>
+#include <QThread>
 
 WorkSpace::WorkSpace(QWidget *parent)
     : QMainWindow(parent)
@@ -23,7 +24,6 @@ WorkSpace::WorkSpace(QWidget *parent)
     pixmap = new QPixmap(basePixmapWidth,basePixmapHeight);
     pixmap->fill(Qt::white);
 
-    setStyleSheet("background : gray");
     updatePixmap();
     scaleSize = 1;
 
@@ -31,6 +31,29 @@ WorkSpace::WorkSpace(QWidget *parent)
     rectTool = new RectTool();
     ellipseTool = new EllipseTool();
     currentTool = rectTool;
+
+    fibThread = new QThread(nullptr);
+    fib = new Fibonachi();
+    fib->moveToThread(fibThread);
+    fibThread->start();
+
+    connect(fib, &Fibonachi::calced, this, [this]()
+    {
+        QString curFibs = QString("X1: %1\nX2: %2\nf: %3")
+                .arg(fib->getFirstNumber())
+                .arg(fib->getSecondnumber())
+                .arg(fib->getCurrent());
+        ui->fibonLabel->setText(curFibs);
+    });
+
+    connect(this, &WorkSpace::startCalc, fib, [this](){
+        fib->calc(order);
+        ui->counterLabel->setText("Расчёт...");
+    });
+
+    connect(fib, &Fibonachi::finished, this, [this](){
+        on_calcFinished(fib->getResult());
+    });
 }
 
 WorkSpace::~WorkSpace()
@@ -70,7 +93,7 @@ void WorkSpace::setupMenu()
 void WorkSpace::setCoordinates(QPoint pos)
 {
     QString tempCoords = QString("X: %1\nY: %2")
-            .arg(pos.x() - 100)
+            .arg(pos.x())
             .arg(pos.y());
     ui->coordinatesLabel->setText(tempCoords);
 }
@@ -98,9 +121,15 @@ void WorkSpace::mousePressEvent(QMouseEvent* event)
 
 void WorkSpace::mouseMoveEvent(QMouseEvent* event)
 {
-    if (event->pos().x() > 100)
+    int delta = 300;
+    setCoordinates(event->pos());
+    if (event->pos().x()<delta)
     {
-        setCoordinates(event->pos());
+        ui->splitter->move(0,0);
+    }
+    else
+    {
+        ui->splitter->move(-delta, 0);
     }
 }
 
@@ -132,7 +161,7 @@ void WorkSpace::wheelEvent(QWheelEvent *event)
     canvasSize.setWidth((int)basePixmapWidth*scaleSize);
     canvasSize.setHeight((int)basePixmapWidth*scaleSize);
 
-    *pixmap = pixmap->scaled(canvasSize);
+    *pixmap = pixmap->scaled(canvasSize, Qt::KeepAspectRatio);
 
     updatePixmap();
 }
@@ -159,3 +188,15 @@ void WorkSpace::on_openButton_clicked()
     updatePixmap();
 }
 
+
+void WorkSpace::on_execButton_clicked()
+{
+    order = ui->fibEdit->text().toInt();
+    emit startCalc();
+}
+
+void WorkSpace::on_calcFinished(quint64 result)
+{
+    ui->counterLabel->setText(QString("Результат вычислений: %1")
+            .arg(result));
+}
